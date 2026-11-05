@@ -1,0 +1,146 @@
+# ==========================================
+# PeruBudget Distributed
+# Git Ignore Configuration
+# ==========================================
+
+# ==========================================
+# DATASETS - MEF
+# ==========================================
+
+# Original datasets (large files)
+data/raw/*
+!data/raw/.gitkeep
+
+# Generated and processed datasets
+data/processed/*
+!data/processed/.gitkeep
+
+# Temporary dataset formats
+*.parquet
+*.arrow
+*.feather
+
+# Keep small sample datasets in data/samples/
+
+# ==========================================
+# PYTHON - EDA
+# ==========================================
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python testing
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# GO - BACKEND / MACHINE LEARNING
+# ==========================================
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Profiling
+*.prof
+cpu.prof
+mem.prof
+
+# Go workspace
+go.work
+go.work.sum
+
+# ==========================================
+# FRONTEND - REACT / VITE
+# ==========================================
+
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/coverage/
+
+# Frontend caches
+frontend/.vite/
+frontend/.cache/
+
+# ==========================================
+# ENVIRONMENT / SECRETS
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ==========================================
+# DATABASES / STORAGE
+# ==========================================
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Local database volume directories
+volumes/
+mongodb_data/
+redis_data/
+
+# ==========================================
+# DOCKER
+# ==========================================
+
+# Local Docker overrides
+docker-compose.override.yml
+
+# ==========================================
+# LOGS / TEMP FILES
+# ==========================================
+
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ==========================================
+# IDE / OPERATING SYSTEM
+# ==========================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+.DS_Store
+Thumbs.db
+desktop.ini
