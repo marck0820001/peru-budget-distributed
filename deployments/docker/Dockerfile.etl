@@ -1,0 +1,19 @@
+# Imagen de los binarios ML de PeruBudget (ETL concurrente + trainer K-Means).
+# Construir desde la raíz del repo:
+#   docker build -f deployments/docker/Dockerfile.etl -t perubudget-ml .
+FROM golang:1.22-alpine AS build
+WORKDIR /src
+COPY go.mod ./
+RUN go mod download
+COPY cmd ./cmd
+COPY internal ./internal
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/etl ./cmd/etlgo \
+ && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/trainer ./cmd/mrtrainer \
+ && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/benchmark ./cmd/benchmark
+
+FROM alpine:3.20
+WORKDIR /app
+COPY --from=build /out/ /usr/local/bin/
+VOLUME ["/app/data"]
+ENTRYPOINT ["/bin/sh", "-c", "exec \"$0\" \"$@\""]
+CMD ["etl", "--help"]
