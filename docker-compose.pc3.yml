@@ -1,0 +1,23 @@
+services:
+  trainer:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.trainer
+    volumes:
+      - ./data/processed/features_mef:/app/data/processed/features_mef:ro
+      - ./data/processed/kmeans_go:/app/data/processed/kmeans_go
+    command:
+      - -matrix
+      - data/processed/features_mef/kmeans_matrix.csv
+      - -keys
+      - data/processed/features_mef/kmeans_keys.csv
+      - -k
+      - "4"
+      - -workers
+      - "4"
+      - -benchmark-workers
+      - 1,2,4,8
+      - -repeats
+      - "3"
+      - -out
+      - data/processed/kmeans_go
