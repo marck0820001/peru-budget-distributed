@@ -1,0 +1,10 @@
+.git
+.gitignore
+**/__pycache__/
+**/.venv/
+frontend/node_modules/
+data/raw/
+data/processed/
+*.zip
+*.csv
+*.parquet

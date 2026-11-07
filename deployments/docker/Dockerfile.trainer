@@ -1,0 +1,9 @@
+FROM golang:alpine AS build
+WORKDIR /app
+COPY . .
+RUN CGO_ENABLED=0 go build -trimpath -o /trainer ./cmd/trainer
+
+FROM alpine:3.20
+WORKDIR /app
+COPY --from=build /trainer /app/trainer
+ENTRYPOINT ["/app/trainer"]
