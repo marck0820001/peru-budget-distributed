@@ -1,0 +1,18 @@
+ cmd/massivekmeans/main.go                          |  73 [32m+++++[m
+ cmd/massiveprofile/main.go                         |  60 [32m++++[m
+ docs/architecture/06-kmeans-masivo-go.md           |  31 [32m++[m
+ docs/architecture/07-perfilado-kmeans-masivo.md    |  46 [32m+++[m
+ .../08-validacion-final-kmeans-masivo.md           |  30 [32m++[m
+ docs/evidence/validacion-kmeans-masivo.md          |  36 [32m+++[m
+ internal/ml/massive/build.go                       | 245 [32m+++++++++++++++[m
+ internal/ml/massive/features.go                    | 100 [32m++++++[m
+ internal/ml/massive/massive_test.go                | 183 [32m+++++++++++[m
+ internal/ml/massive/profile.go                     | 211 [32m+++++++++++++[m
+ internal/ml/massive/profile_test.go                |  79 [32m+++++[m
+ internal/ml/massive/train.go                       | 349 [32m+++++++++++++++++++++[m
+ scripts/benchmarks/run_massive_benchmarks.ps1      |  41 [32m+++[m
+ scripts/benchmarks/summarize_massive.py            |  80 [32m+++++[m
+ scripts/validation/validate_massive_pc3.py         | 221 [32m+++++++++++++[m
+ tests/test_summarize_massive.py                    |  27 [32m++[m
+ tests/test_validate_massive_pc3.py                 |  29 [32m++[m
+ 17 files changed, 1841 insertions(+)
