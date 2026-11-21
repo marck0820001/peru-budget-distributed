@@ -1,0 +1,21 @@
+# Prevent Docker Desktop from sending MEF raw CSVs (GB) to the build context.
+.git
+.vscode
+.idea
+.venv
+**/__pycache__
+**/*.pyc
+data
+*.zip
+*.rar
+*.exe
+*.pdf
+*.docx
+*.png
+*.jpg
+*.jpeg
+*.f64
+*.csv
+*.json
+*.md
+*.log

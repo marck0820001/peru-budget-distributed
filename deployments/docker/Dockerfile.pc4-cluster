@@ -1,0 +1,14 @@
+# Los binarios GO son compatibles con la versión del módulo (go 1.27.0).
+FROM golang:1.27-alpine AS builder
+WORKDIR /src
+COPY go.mod ./
+COPY internal/ ./internal/
+COPY cmd/mlnode/ ./cmd/mlnode/
+COPY cmd/coordinator/ ./cmd/coordinator/
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -o /out/mlnode ./cmd/mlnode \
+ && CGO_ENABLED=0 GOOS=linux go build -trimpath -o /out/coordinator ./cmd/coordinator
+
+FROM alpine:3.22
+COPY --from=builder /out /app
+WORKDIR /app
+ENTRYPOINT ["/app/coordinator"]

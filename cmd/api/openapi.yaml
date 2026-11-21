@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: PeruBudget Distributed — PC4 REST API
+  version: 0.3.0
+  description: >-
+    API local de demostración. Ejecuta K-Means distribuido sobre el binario
+    validado de PC3 mediante dos nodos TCP. Los trabajos son asíncronos;
+    MongoDB persiste los trabajos y Redis cachea las consultas.
+servers:
+  - url: http://localhost:8080
+paths:
+  /health:
+    get:
+      tags: [Diagnóstico]
+      summary: Salud inmediata de la API (no comprueba nodos TCP)
+      responses:
+        '200':
+          description: API lista y metadatos cargados
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, example: ok}
+                  service: {type: string, example: perubudget-pc4-api}
+                  dataset_rows: {type: integer, format: int64, example: 3642510}
+                  features:
+                    type: array
+                    items: {type: string}
+                  node_count: {type: integer, example: 2}
+  /api/v1/storage/health:
+    get:
+      tags: [Diagnóstico]
+      summary: Conectividad MongoDB y Redis
+      responses:
+        '200': {description: Ambos servicios responden}
+        '503': {description: Persistencia incompleta/no disponible}
+  /api/v1/cluster/nodes:
+    get:
+      tags: [Clúster]
+      summary: Consulta conectividad TCP de los nodos
+      description: Reachable solo prueba conexión TCP, no el entrenamiento.
+      responses:
+        '200':
+          description: Conectividad
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address: {type: string, example: 'node-a:9101'}
+                        reachable: {type: boolean, example: true}
+                  note: {type: string}
+  /api/v1/train:
+    post:
+      tags: [Entrenamiento]
+      summary: Inicia un K-Means distribuido no bloqueante
+      description: Solo admite un entrenamiento activo; el resto recibe 409.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                k: {type: integer, minimum: 2, maximum: 16, default: 3}
+                seed: {type: integer, format: int64, default: 42}
+                max_iterations: {type: integer, minimum: 1, maximum: 100, default: 25}
+            example:
+              k: 3
+              seed: 42
+              max_iterations: 25
+      responses:
+        '202':
+          description: Entrenamiento iniciado
+          headers:
+            Location:
+              description: Ruta de consulta del trabajo
+              schema: {type: string}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id: {type: string}
+                  status: {type: string, example: running}
+                  status_url: {type: string}
+        '400': {description: Configuración inválida}
+        '409': {description: Otro entrenamiento sigue activo}
+  /api/v1/jobs:
+    get:
+      tags: [Entrenamiento]
+      summary: Lista de trabajos persistidos en MongoDB
+      responses:
+        '200':
+          description: Listado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobs:
+                    type: array
+                    items: {$ref: '#/components/schemas/Job'}
+  /api/v1/jobs/{id}:
+    get:
+      tags: [Entrenamiento]
+      summary: Estado y resumen de un entrenamiento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: Estado del trabajo
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Job'}
+        '404': {description: Trabajo inexistente}
+  /api/v1/jobs/{id}/result:
+    get:
+      tags: [Entrenamiento]
+      summary: Reporte JSON completo al finalizar
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: Reporte K-Means distribuido
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Estructura masiva.TrainResult con centroides, tamaños e historial.
+                additionalProperties: true
+        '404': {description: Trabajo/reporte inexistente}
+        '409': {description: Trabajo en curso o fallido}
+components:
+  schemas:
+    Job:
+      type: object
+      properties:
+        id: {type: string}
+        status: {type: string, enum: [running, succeeded, failed]}
+        k: {type: integer}
+        seed: {type: integer, format: int64}
+        node_count: {type: integer}
+        dataset_rows: {type: integer, format: int64}
+        started_at: {type: string, format: date-time}
+        finished_at: {type: string, format: date-time}
+        report: {type: string}
+        inertia: {type: number, format: double}
+        iterations: {type: integer}
+        cluster_sizes:
+          type: array
+          items: {type: integer, format: int64}
+        converged: {type: boolean}
+        error: {type: string}

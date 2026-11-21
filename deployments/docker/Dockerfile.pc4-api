@@ -1,0 +1,15 @@
+# Go dependencies are resolved using go.mod/go.sum; datasets are not built into image.
+FROM golang:1.27-alpine AS builder
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY internal/ ./internal/
+COPY cmd/mlnode/ ./cmd/mlnode/
+COPY cmd/api/ ./cmd/api/
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -o /out/mlnode ./cmd/mlnode \
+ && CGO_ENABLED=0 GOOS=linux go build -trimpath -o /out/api ./cmd/api
+
+FROM alpine:3.22
+COPY --from=builder /out /app
+WORKDIR /app
+ENTRYPOINT ["/app/api"]

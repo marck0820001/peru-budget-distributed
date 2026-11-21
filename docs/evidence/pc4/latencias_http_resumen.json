@@ -1,0 +1,65 @@
+﻿{
+    "measured_at_utc":  "2026-11-21T08:32:41.1672970Z",
+    "base_url":  "http://localhost:8080",
+    "job_id":  "24723f15a506976bbbcb2ceb",
+    "iterations":  50,
+    "warmup_per_endpoint":  3,
+    "measurement":  "Client-side end-to-end HTTP latency using PowerShell Invoke-WebRequest; excludes warmup",
+    "endpoint_summary":  [
+                             {
+                                 "Endpoint":  "health",
+                                 "Requests":  50,
+                                 "HTTP200":  50,
+                                 "Errors":  0,
+                                 "Under100":  50,
+                                 "CompliancePct":  100,
+                                 "MedianMs":  24.193,
+                                 "P95Ms":  29.085,
+                                 "MaxMs":  29.931
+                             },
+                             {
+                                 "Endpoint":  "storage",
+                                 "Requests":  50,
+                                 "HTTP200":  50,
+                                 "Errors":  0,
+                                 "Under100":  50,
+                                 "CompliancePct":  100,
+                                 "MedianMs":  24.818,
+                                 "P95Ms":  27.39,
+                                 "MaxMs":  28.051
+                             },
+                             {
+                                 "Endpoint":  "nodes",
+                                 "Requests":  50,
+                                 "HTTP200":  50,
+                                 "Errors":  0,
+                                 "Under100":  50,
+                                 "CompliancePct":  100,
+                                 "MedianMs":  25.266,
+                                 "P95Ms":  29.577,
+                                 "MaxMs":  33.639
+                             },
+                             {
+                                 "Endpoint":  "job",
+                                 "Requests":  50,
+                                 "HTTP200":  50,
+                                 "Errors":  0,
+                                 "Under100":  50,
+                                 "CompliancePct":  100,
+                                 "MedianMs":  23.934,
+                                 "P95Ms":  26.524,
+                                 "MaxMs":  35.134
+                             },
+                             {
+                                 "Endpoint":  "result",
+                                 "Requests":  50,
+                                 "HTTP200":  50,
+                                 "Errors":  0,
+                                 "Under100":  50,
+                                 "CompliancePct":  100,
+                                 "MedianMs":  26.432,
+                                 "P95Ms":  29.049,
+                                 "MaxMs":  30.921
+                             }
+                         ]
+}

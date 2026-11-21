@@ -1,0 +1,114 @@
+{
+  "rows": 3642510,
+  "features": [
+    "signed_log_pia",
+    "signed_log_pim",
+    "signed_log_devengado",
+    "tasa_ejecucion_acotada",
+    "participacion_q4_acotada",
+    "meses_activos_fraccion",
+    "es_proyecto",
+    "pim_cero",
+    "devengado_cero"
+  ],
+  "k": 3,
+  "workers": 2,
+  "seed": 42,
+  "clip_z": 5,
+  "initialization_sample": 10000,
+  "centroids_scaled": [
+    [
+      -0.5177909722391687,
+      -0.7697179463599076,
+      1.118228959007633,
+      0.03516119326335958,
+      0.6310401762934515,
+      0.7015012344262362,
+      0.036420584145144125,
+      0.8228681930002436,
+      -1.1680727482058846
+    ],
+    [
+      1.3189360117614881,
+      0.14170625862411,
+      -0.8040990448717894,
+      -0.13924500311268026,
+      -0.4415047397874365,
+      -0.493045784883232,
+      -0.3260215927908999,
+      -0.13563754023905578,
+      0.8425115142182255
+    ],
+    [
+      -0.5358969199750152,
+      0.9164910699835374,
+      -0.7680302999950707,
+      -0.024750361355435502,
+      -0.44254889148705007,
+      -0.492539117416712,
+      0.25737383602623437,
+      -0.9947076515562662,
+      0.7998432720930899
+    ]
+  ],
+  "cluster_sizes": [
+    1502969,
+    1037720,
+    1101821
+  ],
+  "inertia": 15719788.266972363,
+  "iterations": 8,
+  "converged": true,
+  "training_duration_ms": 27732,
+  "history": [
+    {
+      "iteration": 1,
+      "inertia_before_update": 32366928.72460287,
+      "max_centroid_shift": 2.5284003816749374,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 2,
+      "inertia_before_update": 15852919.486803692,
+      "max_centroid_shift": 0.293411116853954,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 3,
+      "inertia_before_update": 15723063.988962557,
+      "max_centroid_shift": 0.025551099233615353,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 4,
+      "inertia_before_update": 15721118.94687325,
+      "max_centroid_shift": 0.01670069266378941,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 5,
+      "inertia_before_update": 15720067.767163614,
+      "max_centroid_shift": 0.01119899150439081,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 6,
+      "inertia_before_update": 15719793.061014814,
+      "max_centroid_shift": 0.0013344890381608411,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 7,
+      "inertia_before_update": 15719788.425373405,
+      "max_centroid_shift": 0.00026446646617034304,
+      "empty_clusters": 0
+    },
+    {
+      "iteration": 8,
+      "inertia_before_update": 15719788.271011613,
+      "max_centroid_shift": 0.00004430958846989663,
+      "empty_clusters": 0
+    }
+  ],
+  "note": "Entrenamiento K-Means DISTRIBUIDO TCP con shards disjuntos. Igual inicialización K-Means++ que PC3. Resultados parciales sumados por coordinador."
+}
