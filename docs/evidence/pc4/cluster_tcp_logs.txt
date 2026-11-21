@@ -1,0 +1,24 @@
+coordinator-1  | PC4: K-Means TCP | filas=3642510 | K=3 | nodos=[node-a:9101 node-b:9101]
+node-a-1       | 2026/11/21 06:35:48 Nodo node-a escuchando en [::]:9101 | filas=3642510 | features=9
+coordinator-1  | PC4 OK: filas=3642510 | K=3 | nodos=2 | iteraciones=8 | convergi├│=true | inercia=15719788.266972363 | tiempos=27732 ms
+coordinator-1  | Clusters=[1502969 1037720 1101821]
+node-b-1       | 2026/11/21 06:35:49 Nodo node-b escuchando en [::]:9101 | filas=3642510 | features=9
+node-a-1       | 2026/11/21 06:35:57 TCP nodo=node-a iter=1 shard=[0,1821255) filas=1821255 inercia=16586741.327566 duracion=2.642006851s
+node-a-1       | 2026/11/21 06:35:59 TCP nodo=node-a iter=2 shard=[0,1821255) filas=1821255 inercia=8252243.445019 duracion=2.592217181s
+coordinator-1  | Reporte=/dataset/training_distributed_k3_nodes2_seed42.json
+node-b-1       | 2026/11/21 06:35:57 TCP nodo=node-b iter=1 shard=[1821255,3642510) filas=1821255 inercia=15780187.397037 duracion=2.650488469s
+node-b-1       | 2026/11/21 06:35:59 TCP nodo=node-b iter=2 shard=[1821255,3642510) filas=1821255 inercia=7600676.041785 duracion=2.562524624s
+node-b-1       | 2026/11/21 06:36:04 TCP nodo=node-b iter=3 shard=[1821255,3642510) filas=1821255 inercia=7534111.729604 duracion=4.713530298s
+node-b-1       | 2026/11/21 06:36:07 TCP nodo=node-b iter=4 shard=[1821255,3642510) filas=1821255 inercia=7533171.874667 duracion=2.494808613s
+node-b-1       | 2026/11/21 06:36:09 TCP nodo=node-b iter=5 shard=[1821255,3642510) filas=1821255 inercia=7532887.593074 duracion=2.829925318s
+node-a-1       | 2026/11/21 06:36:04 TCP nodo=node-a iter=3 shard=[0,1821255) filas=1821255 inercia=8188952.259359 duracion=4.537847557s
+node-b-1       | 2026/11/21 06:36:12 TCP nodo=node-b iter=6 shard=[1821255,3642510) filas=1821255 inercia=7532955.254075 duracion=2.3383438s
+node-a-1       | 2026/11/21 06:36:07 TCP nodo=node-a iter=4 shard=[0,1821255) filas=1821255 inercia=8187947.072206 duracion=2.533608514s
+node-a-1       | 2026/11/21 06:36:09 TCP nodo=node-a iter=5 shard=[0,1821255) filas=1821255 inercia=8187180.174090 duracion=2.836453496s
+node-b-1       | 2026/11/21 06:36:14 TCP nodo=node-b iter=7 shard=[1821255,3642510) filas=1821255 inercia=7532985.329141 duracion=1.86434179s
+node-b-1       | 2026/11/21 06:36:15 TCP nodo=node-b iter=8 shard=[1821255,3642510) filas=1821255 inercia=7532990.618783 duracion=1.723742942s
+node-a-1       | 2026/11/21 06:36:12 TCP nodo=node-a iter=6 shard=[0,1821255) filas=1821255 inercia=8186837.806940 duracion=2.338984143s
+node-a-1       | 2026/11/21 06:36:14 TCP nodo=node-a iter=7 shard=[0,1821255) filas=1821255 inercia=8186803.096233 duracion=1.865377924s
+node-a-1       | 2026/11/21 06:36:15 TCP nodo=node-a iter=8 shard=[0,1821255) filas=1821255 inercia=8186797.652229 duracion=1.729989451s
+node-a-1       | 2026/11/21 06:36:17 TCP nodo=node-a iter=9 shard=[0,1821255) filas=1821255 inercia=8186796.944914 duracion=1.344623484s
+node-b-1       | 2026/11/21 06:36:17 TCP nodo=node-b iter=9 shard=[1821255,3642510) filas=1821255 inercia=7532991.322058 duracion=1.345215292s

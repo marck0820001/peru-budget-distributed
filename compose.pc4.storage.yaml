@@ -1,0 +1,90 @@
+# PC4 Etapa 3. Run separately from compose.pc4.api.yaml (same port 8080).
+services:
+  node-a:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-api
+    image: perubudget/pc4-storage:local
+    entrypoint: ["/app/mlnode"]
+    command: ["-listen", ":9101", "-id", "node-a", "-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+    networks: [ml-internal]
+    restart: unless-stopped
+  node-b:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-api
+    image: perubudget/pc4-storage:local
+    entrypoint: ["/app/mlnode"]
+    command: ["-listen", ":9101", "-id", "node-b", "-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+    networks: [ml-internal]
+    restart: unless-stopped
+  mongodb:
+    image: mongo:8.0
+    command: ["--bind_ip_all"]
+    volumes:
+      - pc4-mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand({ping:1}).ok"]
+      interval: 8s
+      timeout: 5s
+      retries: 12
+      start_period: 25s
+    networks: [ml-internal]
+    restart: unless-stopped
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - pc4-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks: [ml-internal]
+    restart: unless-stopped
+  api:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-api
+    image: perubudget/pc4-storage:local
+    entrypoint: ["/app/api"]
+    command:
+      - -listen
+      - :8080
+      - -metadata
+      - /dataset/budget_lines_metadata.json
+      - -data
+      - /dataset/budget_lines.f64
+      - -nodes
+      - node-a:9101,node-b:9101
+      - -out-dir
+      - /reports
+      - -mongo-uri
+      - mongodb://mongodb:27017
+      - -mongo-db
+      - perubudget_pc4
+      - -redis-addr
+      - redis:6379
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+      - ./data/processed/pc4_api:/reports
+    depends_on:
+      mongodb: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      node-a: {condition: service_started}
+      node-b: {condition: service_started}
+    networks: [ml-internal]
+    restart: unless-stopped
+networks:
+  ml-internal:
+    driver: bridge
+volumes:
+  pc4-mongo-data:
+  pc4-redis-data:

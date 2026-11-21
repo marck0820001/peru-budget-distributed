@@ -1,0 +1,37 @@
+# Primera fase PC4: 2 nodos ML independientes via TCP y un coordinador.
+# Requiere data/processed/massive_mef/{budget_lines.f64,budget_lines_metadata.json}
+services:
+  node-a:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-cluster
+    image: perubudget/pc4-cluster:local
+    entrypoint: ["/app/mlnode"]
+    command: ["-listen", ":9101", "-id", "node-a", "-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+    networks: [ml-internal]
+  node-b:
+    image: perubudget/pc4-cluster:local
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-cluster
+    entrypoint: ["/app/mlnode"]
+    command: ["-listen", ":9101", "-id", "node-b", "-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+    networks: [ml-internal]
+  coordinator:
+    image: perubudget/pc4-cluster:local
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-cluster
+    command: ["-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64", "-nodes", "node-a:9101,node-b:9101", "-k", "3", "-seed", "42", "-out", "/dataset/training_distributed_k3_nodes2_seed42.json"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset
+    depends_on: [node-a, node-b]
+    networks: [ml-internal]
+networks:
+  ml-internal:
+    driver: bridge
+    internal: true

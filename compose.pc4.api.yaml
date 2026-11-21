@@ -1,0 +1,56 @@
+# PC4 Etapa 2: API HTTP + Swagger + nodos TCP independientes.
+# Persistencia MongoDB/Redis se implementará en la etapa 3.
+services:
+  node-a:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-api
+    image: perubudget/pc4-api:local
+    entrypoint: ["/app/mlnode"]
+    command: ["-listen", ":9101", "-id", "node-a", "-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+    networks: [ml-internal]
+    restart: unless-stopped
+
+  node-b:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-api
+    image: perubudget/pc4-api:local
+    entrypoint: ["/app/mlnode"]
+    command: ["-listen", ":9101", "-id", "node-b", "-metadata", "/dataset/budget_lines_metadata.json", "-data", "/dataset/budget_lines.f64"]
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+    networks: [ml-internal]
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: deployments/docker/Dockerfile.pc4-api
+    image: perubudget/pc4-api:local
+    entrypoint: ["/app/api"]
+    command:
+      - -listen
+      - :8080
+      - -metadata
+      - /dataset/budget_lines_metadata.json
+      - -data
+      - /dataset/budget_lines.f64
+      - -nodes
+      - node-a:9101,node-b:9101
+      - -out-dir
+      - /reports
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./data/processed/massive_mef:/dataset:ro
+      - ./data/processed/pc4_api:/reports
+    depends_on: [node-a, node-b]
+    networks: [ml-internal]
+    restart: unless-stopped
+
+networks:
+  ml-internal:
+    driver: bridge
