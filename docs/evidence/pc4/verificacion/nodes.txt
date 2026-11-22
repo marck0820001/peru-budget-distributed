@@ -1,0 +1,8 @@
+$ Invoke-RestMethod http://127.0.0.1:8080/api/v1/cluster/nodes
+{
+    "nodes":  [
+                  { "address":  "node-a:9101", "reachable":  true },
+                  { "address":  "node-b:9101", "reachable":  true }
+              ],
+    "note":  "Reachable indica conexión TCP posible, no garantiza la ejecución del entrenamiento"
+}

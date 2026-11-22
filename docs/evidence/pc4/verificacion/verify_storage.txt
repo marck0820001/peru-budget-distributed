@@ -1,0 +1,20 @@
+$ powershell -File scripts/pc4/verify_storage.ps1 -RunTraining -CheckRestart
+=== Persistencia MongoDB + Redis ===
+{
+    "mongodb":  "ok",
+    "redis":  "ok"
+}
+Nodos TCP OK
+Job persistido: aa49266e2357533887629f78
+Job=aa49266e2357533887629f78 Status=running
+Job=aa49266e2357533887629f78 Status=running
+Job=aa49266e2357533887629f78 Status=running
+Job=aa49266e2357533887629f78 Status=running
+Job=aa49266e2357533887629f78 Status=succeeded
+Informe guardado; inercia=15719788.266972363; iteraciones=8
+=== Reiniciando SOLO la API; preservando volúmenes y nodos ===
+ Container peru-budget-distributed-api-1  Restarting
+ Container peru-budget-distributed-api-1  Started
+PASS: MongoDB conserva job e inercia despues de reiniciar la API.
+Job ID: aa49266e2357533887629f78
+OK: comprobar tambien docker compose logs api mongodb redis.

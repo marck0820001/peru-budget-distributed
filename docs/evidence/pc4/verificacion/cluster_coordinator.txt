@@ -1,0 +1,5 @@
+$ docker compose -f compose.pc4.cluster.yaml up --build --abort-on-container-exit --exit-code-from coordinator
+coordinator-1  | PC4: K-Means TCP | filas=3642510 | K=3 | nodos=[node-a:9101 node-b:9101]
+coordinator-1  | PC4 OK: filas=3642510 | K=3 | nodos=2 | iteraciones=8 | convergió=true | inercia=15719788.266972363 | tiempos=16981 ms
+coordinator-1  | Clusters=[1502969 1037720 1101821]
+coordinator-1  | Reporte=/dataset/training_distributed_k3_nodes2_seed42.json

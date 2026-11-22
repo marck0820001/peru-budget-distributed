@@ -1,0 +1,18 @@
+$ Invoke-RestMethod http://127.0.0.1:8080/health
+{
+    "dataset_rows":  3642510,
+    "features":  [
+                     "signed_log_pia",
+                     "signed_log_pim",
+                     "signed_log_devengado",
+                     "tasa_ejecucion_acotada",
+                     "participacion_q4_acotada",
+                     "meses_activos_fraccion",
+                     "es_proyecto",
+                     "pim_cero",
+                     "devengado_cero"
+                 ],
+    "node_count":  2,
+    "service":  "perubudget-pc4-api",
+    "status":  "ok"
+}

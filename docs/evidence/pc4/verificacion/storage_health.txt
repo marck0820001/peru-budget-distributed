@@ -1,0 +1,5 @@
+$ Invoke-RestMethod http://127.0.0.1:8080/api/v1/storage/health
+{
+    "mongodb":  "ok",
+    "redis":  "ok"
+}

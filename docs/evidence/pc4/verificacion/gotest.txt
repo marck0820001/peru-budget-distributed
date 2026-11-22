@@ -1,0 +1,13 @@
+$ go test ./...
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/api	[no test files]
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/coordinator	[no test files]
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/etl	[no test files]
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/massivekmeans	[no test files]
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/massiveprofile	[no test files]
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/mlnode	[no test files]
+?   	github.com/marck0820001/peru-budget-distributed.git/cmd/trainer	[no test files]
+ok  	github.com/marck0820001/peru-budget-distributed.git/internal/api	0.622s
+ok  	github.com/marck0820001/peru-budget-distributed.git/internal/ingestion	0.345s
+ok  	github.com/marck0820001/peru-budget-distributed.git/internal/ml/kmeans	0.338s
+ok  	github.com/marck0820001/peru-budget-distributed.git/internal/ml/massive	0.630s
+?   	github.com/marck0820001/peru-budget-distributed.git/internal/storage	[no test files]

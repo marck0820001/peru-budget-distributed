@@ -1,0 +1,12 @@
+$ mongosh ... "db.getSiblingDB('perubudget_pc4').training_jobs.countDocuments({})"
+1
+$ mongosh ... "printjson(db.getSiblingDB('perubudget_pc4').training_jobs.findOne({}, {payload:0}))"
+{
+  _id: 'aa49266e2357533887629f78',
+  started_at: ISODate('2026-11-22T03:57:48.215Z'),
+  status: 'succeeded'
+}
+$ redis-cli DBSIZE
+1
+$ redis-cli --scan --pattern "perubudget:pc4:job:*"
+perubudget:pc4:job:aa49266e2357533887629f78

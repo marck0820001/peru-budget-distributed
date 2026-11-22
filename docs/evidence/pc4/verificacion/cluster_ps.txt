@@ -1,0 +1,5 @@
+$ docker compose -f compose.pc4.cluster.yaml ps -a
+NAME                                    IMAGE                          COMMAND                  SERVICE       CREATED          STATUS                                PORTS
+peru-budget-distributed-coordinator-1   perubudget/pc4-cluster:local   "/app/coordinator -m…"   coordinator   19 seconds ago   Exited (0) Less than a second ago
+peru-budget-distributed-node-a-1        perubudget/pc4-cluster:local   "/app/mlnode -listen…"   node-a        21 seconds ago   Exited (143) Less than a second ago
+peru-budget-distributed-node-b-1        perubudget/pc4-cluster:local   "/app/mlnode -listen…"   node-b        21 seconds ago   Exited (143) Less than a second ago

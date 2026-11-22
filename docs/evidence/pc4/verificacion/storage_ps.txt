@@ -1,0 +1,7 @@
+$ docker compose -f compose.pc4.storage.yaml ps
+NAME                                IMAGE                          COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+peru-budget-distributed-api-1       perubudget/pc4-storage:local   "/app/api -listen :8…"   api       2 minutes ago   Up 2 minutes             127.0.0.1:8080->8080/tcp
+peru-budget-distributed-mongodb-1   mongo:8.0                      "docker-entrypoint.s…"   mongodb   2 minutes ago   Up 2 minutes (healthy)   27017/tcp
+peru-budget-distributed-node-a-1    perubudget/pc4-storage:local   "/app/mlnode -listen…"   node-a    2 minutes ago   Up 2 minutes
+peru-budget-distributed-node-b-1    perubudget/pc4-storage:local   "/app/mlnode -listen…"   node-b    2 minutes ago   Up 2 minutes
+peru-budget-distributed-redis-1     redis:7.4-alpine               "docker-entrypoint.s…"   redis     2 minutes ago   Up 2 minutes (healthy)   6379/tcp
